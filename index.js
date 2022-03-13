@@ -48,7 +48,6 @@ listeRdv['Nangis'] = dataRdvNangis;
 client.once('ready', c => {
     console.log("Ready");
     const listPromise = []
-    client.channels.cache.get(channelId).send("---------------------------");
     let file_content = fs.readFileSync('date-rdv.json');
     let content = JSON.parse(file_content);
     for(key in listeRdv) {
@@ -56,11 +55,8 @@ client.once('ready', c => {
     }
     Promise.all(listPromise).then((values) => {
         if(values[0] === false && values[1] === false) {
-            client.channels.cache.get(channelId).send("Batch executé : Pas de nouveaux créneaux libérés");
-        }
-        client.channels.cache.get(channelId).send("---------------------------").then(() => {
             process.exit()
-        });
+        }
     })
 });
 
